@@ -1,0 +1,32 @@
+{
+  "title": "Replication materials for: Where knowledge drives digital sophistication and where it does not: institutional contingency of the second-level divide in subnational software production",
+  "description": "Data, code, and figures for replicating the analysis in Gomez (2026). Includes an integrated dataset of 511 Argentine departments, OLS and Chow-test specifications, and all output figures and tables.",
+  "upload_type": "dataset",
+  "creators": [
+    {
+      "name": "Gomez, Raimundo Elias",
+      "affiliation": "CONICET, Universidad Nacional de Misiones, Argentina; Institute of Sociology, University of Porto, Portugal",
+      "orcid": "0000-0002-4468-9618"
+    }
+  ],
+  "keywords": [
+    "second-level digital divide",
+    "software complexity",
+    "institutional contingency",
+    "knowledge infrastructure",
+    "territorial heterogeneity",
+    "subnational development",
+    "Argentina",
+    "replication materials"
+  ],
+  "license": "MIT",
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.18674718",
+      "relation": "isSupplementedBy",
+      "scheme": "doi"
+    }
+  ],
+  "notes": "Companion article submitted to Technology in Society."
+}
