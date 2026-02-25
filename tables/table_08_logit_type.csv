@@ -1,0 +1,7 @@
+Type,N,N_devs,pct_devs,Pseudo_R2,OR_cyt_stem_per_10k,p_cyt_stem_per_10k,OR_log_wage_median,p_log_wage_median,OR_log_pob,p_log_pob,OR_inet_penetracion_hog,p_inet_penetracion_hog
+Peripheral-Deprived,144,44,30.6,0.2382,0.376,0.2735,2.873,0.3865,5.573,0.0000,1.013,0.3786
+Metropolitan-Core,61,57,93.4,—,—,—,—,—,—,—,—,—
+Metropolitan-Diversified,62,49,79.0,0.3613,0.984,0.8323,0.524,0.7259,5.164,0.0040,0.987,0.7707
+Pampeana-Educated,97,70,72.2,0.4551,0.697,0.3406,0.003,0.1107,46.837,0.0001,0.981,0.2928
+Semi-Rural-Active,46,4,8.7,—,—,—,—,—,—,—,—,—
+Intermediate-Urban,86,62,72.1,0.1801,9.105,0.3330,2.857,0.4337,2.804,0.0087,0.989,0.7042

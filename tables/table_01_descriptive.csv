@@ -1,0 +1,23 @@
+,,N,Mean,SD,Min,P25,P50,P75,Max
+Panel A: All departments (N=511),STEM researchers per 10k,511.000,1.129,3.948,0.000,0.000,0.000,0.100,37.870
+Panel A: All departments (N=511),Dist. to STEM uni (km),511.000,81.762,72.263,0.299,31.664,62.018,116.713,563.152
+Panel A: All departments (N=511),% university-educated adults,510.000,7.694,3.538,1.050,5.090,7.355,9.575,26.690
+Panel A: All departments (N=511),ln(Median wage),496.000,11.657,0.221,11.129,11.510,11.665,11.781,12.805
+Panel A: All departments (N=511),Nighttime radiance 2022,511.000,21.917,20.690,0.444,7.129,15.270,29.012,143.416
+Panel A: All departments (N=511),Advanced services (%),507.000,8.326,6.440,0.000,4.965,7.210,10.350,88.460
+Panel A: All departments (N=511),ln(Population),511.000,10.362,1.415,6.023,9.445,10.321,11.226,14.945
+Panel A: All departments (N=511),Internet penetration (%),511.000,17.800,17.513,0.212,6.255,13.069,22.946,138.636
+Panel A: All departments (N=511),eci_software,224.000,0.000,1.002,-2.572,-0.660,0.053,0.720,2.111
+Panel A: All departments (N=511),gh_devs_per_10k,511.000,2.111,5.262,0.000,0.000,0.402,2.184,67.575
+Panel A: All departments (N=511),gh_language_diversity_index,289.000,1.662,0.751,0.000,1.274,1.889,2.241,2.741
+Panel B: With ECI (N=224),STEM researchers per 10k,224.000,2.089,5.120,0.000,0.000,0.000,1.295,37.830
+Panel B: With ECI (N=224),Dist. to STEM uni (km),224.000,56.947,54.675,0.299,16.721,43.879,82.337,407.002
+Panel B: With ECI (N=224),% university-educated adults,223.000,9.669,3.488,3.270,7.620,9.220,11.310,26.690
+Panel B: With ECI (N=224),ln(Median wage),222.000,11.725,0.158,11.215,11.638,11.745,11.817,12.358
+Panel B: With ECI (N=224),Nighttime radiance 2022,224.000,33.534,23.458,2.322,15.396,26.773,48.635,143.416
+Panel B: With ECI (N=224),Advanced services (%),222.000,9.341,4.629,1.540,6.397,8.465,11.242,29.850
+Panel B: With ECI (N=224),ln(Population),224.000,11.290,1.173,9.041,10.472,11.148,12.158,14.945
+Panel B: With ECI (N=224),Internet penetration (%),224.000,12.233,11.409,0.212,3.780,9.202,17.167,79.354
+Panel B: With ECI (N=224),eci_software,224.000,0.000,1.002,-2.572,-0.660,0.053,0.720,2.111
+Panel B: With ECI (N=224),gh_devs_per_10k,224.000,4.556,7.230,0.061,1.167,2.468,5.135,67.575
+Panel B: With ECI (N=224),gh_language_diversity_index,224.000,1.954,0.477,0.305,1.662,2.033,2.318,2.741

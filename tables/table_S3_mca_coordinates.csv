@@ -1,0 +1,25 @@
+Modality,Coord Dim 1,Coord Dim 2,Contrib Dim 1 (%),Contrib Dim 2 (%)
+pct_jefe_sec_2010_t__Sec. educ._High,-0.992,-0.602,6.47,5.37
+pct_jefe_sec_2010_t__Sec. educ._Low,1.143,-0.455,8.54,3.04
+pct_jefe_sec_2010_t__Sec. educ._Mid,-0.145,1.06,0.14,16.55
+pct_jefe_uni_2010_t__Univ. educ._High,-1.051,-0.645,7.22,6.12
+pct_jefe_uni_2010_t__Univ. educ._Low,1.165,-0.446,8.88,2.93
+pct_jefe_uni_2010_t__Univ. educ._Mid,-0.114,1.085,0.08,17.41
+pct_pc_2010_t__PC ownership_High,-1.054,-0.611,7.26,5.49
+pct_pc_2010_t__PC ownership_Low,1.179,-0.443,9.1,2.89
+pct_pc_2010_t__PC ownership_Mid,-0.125,1.048,0.1,16.25
+rad_2014_t__Radiance_High,-0.869,-0.427,4.96,2.7
+rad_2014_t__Radiance_Low,0.844,-0.204,4.66,0.61
+rad_2014_t__Radiance_Mid,0.03,0.633,0.01,5.9
+tasa_empleo_2010_t__Empl. rate_High,-0.843,-0.252,4.65,0.93
+tasa_empleo_2010_t__Empl. rate_Low,1.073,-0.192,7.57,0.55
+tasa_empleo_2010_t__Empl. rate_Mid,-0.236,0.445,0.37,2.91
+pct_nbi_2010_t__Poverty (NBI)_High,1.097,-0.307,7.87,1.39
+pct_nbi_2010_t__Poverty (NBI)_Low,-0.886,-0.07,5.16,0.07
+pct_nbi_2010_t__Poverty (NBI)_Mid,-0.206,0.378,0.28,2.1
+pct_hacinam_2010_t__Overcrowding_High,0.964,-0.177,6.11,0.46
+pct_hacinam_2010_t__Overcrowding_Low,-0.867,-0.142,4.94,0.3
+pct_hacinam_2010_t__Overcrowding_Mid,-0.099,0.323,0.06,1.53
+ln_pob_2010_t__ln(Pop.)_High,-0.724,-0.397,3.43,2.32
+ln_pob_2010_t__ln(Pop.)_Low,0.546,0.012,1.96,0.0
+ln_pob_2010_t__ln(Pop.)_Mid,0.175,0.385,0.2,2.18
