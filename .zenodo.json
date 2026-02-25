@@ -1,5 +1,5 @@
 {
-  "title": "Replication materials for: Where knowledge drives digital sophistication and where it does not: institutional contingency of the second-level divide in subnational software production",
+  "title": "Replication materials: 'Where knowledge drives digital sophistication and where it does not: institutional contingency of the second-level divide in subnational software production'",
   "description": "Data, code, and figures for replicating the analysis in Gomez (2026). Includes an integrated dataset of 511 Argentine departments, OLS and Chow-test specifications, and all output figures and tables.",
   "upload_type": "dataset",
   "creators": [
@@ -23,7 +23,7 @@
   "language": "eng",
   "related_identifiers": [
     {
-      "identifier": "10.5281/zenodo.18674718",
+      "identifier": "10.5281/zenodo.18674717",
       "relation": "isSupplementedBy",
       "scheme": "doi"
     }
