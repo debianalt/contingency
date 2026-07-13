@@ -1,0 +1,7 @@
+metric,expected_sign,pearson_r,spearman_rho,N,p
+Total stars (log),+,0.743,0.745,224,1.4190315136797049e-40
+"Total codebase size, MB (log)",+,0.39,0.495,224,1.515578484451424e-09
+Repositories with a licence (%),+,0.222,0.323,224,0.0008160502640729066
+Enterprise-oriented development (%),+,0.201,0.299,224,0.0025319473856501426
+Systems-oriented development (%),+,0.152,0.406,224,0.022766414331037616
+Commodity web development (%),-,-0.471,-0.453,224,9.47476811341075e-14

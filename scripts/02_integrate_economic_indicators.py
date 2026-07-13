@@ -15,6 +15,7 @@ Usage:
     python 02_integrate_economic_indicators.py
 """
 
+import os
 import pandas as pd
 import numpy as np
 import sqlalchemy as sa
@@ -24,7 +25,7 @@ DATA_DIR = Path(__file__).parent.parent / "data"
 CEP_DIR = DATA_DIR / "cep_xxi"
 CENSO_DIR = DATA_DIR / "censo"
 SAT_DIR = DATA_DIR / "satelital"
-DB_URI = "postgresql://postgres:postgres@localhost:5432/posadas"
+DB_URI = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/posadas")
 
 
 def to_dpto5(series):

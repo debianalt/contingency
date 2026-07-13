@@ -22,6 +22,13 @@ script_files = [
     "scripts/02_integrate_economic_indicators.py",
     "scripts/03_analysis.py",
     "scripts/04_regenerate_figures.py",
+    # Revision-stage robustness (rounds 1-2)
+    "scripts/10_revision_analyses.py",
+    "scripts/11_selection_sensitivity.py",
+    "scripts/12_mca_robustness.py",
+    "scripts/13_h3_interaction_power.py",
+    "scripts/14_construct_validity.py",
+    "scripts/15_temporal_window_spsi.py",
 ]
 
 # ── Figures (body + supplementary, excluding unused) ─────────────────
@@ -46,6 +53,14 @@ table_files = [
     "tables/table_07_robustness.csv",
     "tables/table_08_logit_type.csv",
     "tables/table_S3_mca_coordinates.csv",
+    # Revision-stage tables (rounds 1-2, supplementary S6-S13)
+    "tables/table_05_moderation_nonlinearity.csv",
+    "tables/table_S6_typology_robustness.csv",
+    "tables/table_S7_bundle_robustness.csv",
+    "tables/table_S8_temporal_panel.csv",
+    "tables/table_S9_selection_sensitivity.csv",
+    "tables/table_S11_construct_validity.csv",
+    "tables/table_S13_temporal_window.csv",
 ]
 
 

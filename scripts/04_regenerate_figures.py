@@ -183,6 +183,9 @@ VAR_LABELS = {
     "pct_servicios_avanzados": "Advanced services (%)",
     "log_pob": "ln(Population)",
     "inet_penetracion_hog": "Internet penetration (%)",
+    "eci_software": "SPSI",
+    "gh_devs_per_10k": "Developers per 10k",
+    "gh_language_diversity_index": "Language diversity",
 }
 
 cluster_labels = {}
@@ -211,7 +214,7 @@ df_eci = df[df["eci_software"].notna()]
 fig1, axes1 = plt.subplots(2, 2, figsize=(12, 10))
 
 plot_info = [
-    ("eci_software", "ECI (software)", df_eci, HIST_COLOURS["eci"]),
+    ("eci_software", "SPSI", df_eci, HIST_COLOURS["eci"]),
     ("gh_devs_per_10k", "Developers per 10,000 inhab.",
      df[df["gh_devs_per_10k"] > 0], HIST_COLOURS["devs"]),
     ("cyt_stem_per_10k", "STEM researchers per 10,000 inhab.",
@@ -253,9 +256,9 @@ fig3, axes3 = plt.subplots(2, 2, figsize=(12, 10))
 
 scatter_specs = [
     ("cyt_stem_per_10k", "eci_software",
-     "STEM researchers per 10k", "ECI software"),
+     "STEM researchers per 10k", "SPSI"),
     ("log_wage_median", "eci_software",
-     "ln(Median wage)", "ECI software"),
+     "ln(Median wage)", "SPSI"),
     ("cyt_stem_per_10k", "gh_devs_per_10k",
      "STEM researchers per 10k", "Developers per 10k"),
     ("log_wage_median", "gh_devs_per_10k",
@@ -300,8 +303,8 @@ for ax, (xvar, yvar, xlab, ylab) in zip(axes3.flat, scatter_specs):
                 bbox=dict(boxstyle="round,pad=0.4", fc="white", ec="#cccccc",
                           alpha=0.9, linewidth=0.5))
 
-    ax.set_xlabel(xlab)
-    ax.set_ylabel(ylab)
+    ax.set_xlabel(xlab, fontsize=17)
+    ax.set_ylabel(ylab, fontsize=17)
     style_axis(ax)
 
 for ax, letter in zip(axes3.flat, ["(a)", "(b)", "(c)", "(d)"]):
@@ -309,12 +312,13 @@ for ax, letter in zip(axes3.flat, ["(a)", "(b)", "(c)", "(d)"]):
             fontsize=STYLE["panel_label_size"], fontweight="bold", va="bottom")
 
 handles, labels = axes3[0, 0].get_legend_handles_labels()
-fig3.legend(handles, labels, loc="lower center", ncol=3,
-            frameon=False, fontsize=STYLE["legend_size"],
+fig3.legend(handles, labels, loc="upper center", ncol=3,
+            frameon=False, fontsize=16,
             columnspacing=1.5, handletextpad=0.5,
-            bbox_to_anchor=(0.5, -0.01))
+            bbox_to_anchor=(0.5, 0.035))
 fig3.tight_layout(rect=[0, 0.07, 1, 1])
-fig3.savefig(FIG_DIR / "fig_03_horse_race_scatter.png", dpi=STYLE["dpi"])
+fig3.savefig(FIG_DIR / "fig_03_horse_race_scatter.png", dpi=STYLE["dpi"],
+             bbox_inches="tight")
 print(f"    Saved: fig_03_horse_race_scatter.png")
 plt.close(fig3)
 
@@ -447,7 +451,9 @@ if len(plot_df_forest) > 0:
     n_vars = len(variables)
     n_types = len(types)
 
-    fig6, ax6 = plt.subplots(figsize=(12, max(7, n_vars * 1.8)))
+    GROUP_SPACING = 2.2   # vertical distance between variable groups
+    OFFSET_RANGE = 0.62   # half-width of the within-group point spread
+    fig6, ax6 = plt.subplots(figsize=(12, max(8, n_vars * GROUP_SPACING * 1.5)))
 
     # Colour assignment: black for pooled, cluster colours for types
     forest_colours = ["#222222"]  # Pooled = near-black
@@ -455,14 +461,14 @@ if len(plot_df_forest) > 0:
         c_int = int(c)
         if c_int in type_betas and type_betas[c_int] is not None:
             forest_colours.append(CLUSTER_COLOURS.get(c_int, "grey"))
-    offsets = np.linspace(-0.3, 0.3, n_types)
+    offsets = np.linspace(-OFFSET_RANGE, OFFSET_RANGE, n_types)
 
     for j, type_name in enumerate(types):
         sub = plot_df_forest[plot_df_forest["type"] == type_name]
         colour = forest_colours[j % len(forest_colours)]
         for _, row in sub.iterrows():
             var_idx = variables.index(row["variable"])
-            y_pos = n_vars - 1 - var_idx + offsets[j]
+            y_pos = (n_vars - 1 - var_idx) * GROUP_SPACING + offsets[j]
             is_pooled = type_name == "Pooled"
             marker = "D" if is_pooled else "o"
             size = 14 if is_pooled else 11
@@ -479,7 +485,7 @@ if len(plot_df_forest) > 0:
             )
 
     ax6.axvline(0, color="#999999", linestyle="--", linewidth=1.2, zorder=1)
-    ax6.set_yticks(range(n_vars))
+    ax6.set_yticks([i * GROUP_SPACING for i in range(n_vars)])
     ax6.set_yticklabels(list(reversed(variables)),
                         fontsize=STYLE["axis_label_size"])
     ax6.set_xlabel("Standardised coefficient (\u03b2) with 95% CI",
@@ -488,12 +494,14 @@ if len(plot_df_forest) > 0:
 
     # Alternating background bands for readability
     for y_g in range(n_vars):
+        centre = y_g * GROUP_SPACING
         if y_g % 2 == 0:
-            ax6.axhspan(y_g - 0.5, y_g + 0.5, color="#f0f0f0", zorder=0)
+            ax6.axhspan(centre - GROUP_SPACING / 2, centre + GROUP_SPACING / 2,
+                        color="#f0f0f0", zorder=0)
         # Divider lines between variable categories
         if y_g > 0:
-            ax6.axhline(y_g - 0.5, color="#cccccc", linewidth=0.8,
-                         linestyle="-", zorder=1)
+            ax6.axhline(centre - GROUP_SPACING / 2, color="#cccccc",
+                         linewidth=0.8, linestyle="-", zorder=1)
 
     # Legend
     legend_handles = []
@@ -506,13 +514,14 @@ if len(plot_df_forest) > 0:
                    markeredgecolor="white" if marker == "o" else colour,
                    markeredgewidth=0.8 if marker == "o" else 0,
                    label=type_name))
-    ax6.legend(handles=legend_handles, loc="lower center",
-               bbox_to_anchor=(0.5, -0.35), ncol=3, frameon=False,
+    ax6.legend(handles=legend_handles, loc="upper center",
+               bbox_to_anchor=(0.5, -0.10), ncol=3, frameon=False,
                fontsize=STYLE["legend_size"], columnspacing=1.5,
                handletextpad=0.5)
 
-    fig6.tight_layout(rect=[0, 0.15, 1, 1])
-    fig6.savefig(FIG_DIR / "fig_06_forest_plot.png", dpi=STYLE["dpi"])
+    fig6.tight_layout(rect=[0, 0.07, 1, 1])
+    fig6.savefig(FIG_DIR / "fig_06_forest_plot.png", dpi=STYLE["dpi"],
+                 bbox_inches="tight")
     print(f"    Saved: fig_06_forest_plot.png")
     plt.close(fig6)
 
@@ -654,7 +663,7 @@ if GEOJSON_PATH.exists() and USE_GPD:
                           linewidth=0.3, aspect="equal")
 
         ax.set_axis_off()
-        ax.set_title(f"{plabel} {lbl}\nN = {n_c}  |  ECI coverage: {n_eci}",
+        ax.set_title(f"{plabel} {lbl}\nN = {n_c}  |  SPSI coverage: {n_eci}",
                      fontsize=STYLE["title_size"], fontweight="bold",
                      pad=10, color=colour)
 
@@ -691,7 +700,7 @@ if GEOJSON_PATH.exists() and USE_GPD:
                               vmin=vmin_eci, vmax=vmax_eci,
                               aspect="equal",
                               legend_kwds={
-                                  "label": "ECI software",
+                                  "label": "SPSI",
                                   "shrink": 0.6,
                                   "orientation": "horizontal",
                                   "pad": 0.04,
@@ -700,7 +709,7 @@ if GEOJSON_PATH.exists() and USE_GPD:
     ax9a.set_xlim(xmin - x_margin, xmax + x_margin)
     ax9a.set_ylim(ymin - y_margin, ymax + y_margin)
     ax9a.set_axis_off()
-    ax9a.set_title("(a) Software complexity (ECI)",
+    ax9a.set_title("(a) Software portfolio sophistication (SPSI)",
                    fontsize=STYLE["title_size"], fontweight="bold", pad=12)
 
     # Panel (b): STEM researchers per 10k

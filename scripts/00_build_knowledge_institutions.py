@@ -16,6 +16,7 @@ Usage:
     python 00_build_knowledge_institutions.py
 """
 
+import os
 import pandas as pd
 import numpy as np
 import json
@@ -29,7 +30,7 @@ warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
 
 # ── Config ──────────────────────────────────────────────────────────────────
 DATA_DIR = Path(__file__).parent.parent / "data"
-DB_URI = "postgresql://postgres:postgres@localhost:5432/posadas"
+DB_URI = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/posadas")
 SCHEMA = "art1"
 TABLE = "departamentos"
 

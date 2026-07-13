@@ -14,6 +14,7 @@ Usage:
     python 01_extract_satellite_indicators.py
 """
 
+import os
 import ee
 import pandas as pd
 import numpy as np
@@ -34,7 +35,7 @@ GEOJSON_PATH = OUT_DIR / "departamentos_polygons.geojson"
 def export_departamentos_geojson():
     """Export department polygons from PostGIS to GeoJSON for GEE."""
     import sqlalchemy as sa
-    engine = sa.create_engine("postgresql://postgres:postgres@localhost:5432/posadas")
+    engine = sa.create_engine(os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/posadas"))
 
     df = pd.read_sql("""
         SELECT dpto5, ST_AsGeoJSON(geometry) as geojson

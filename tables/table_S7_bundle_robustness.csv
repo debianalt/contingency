@@ -1,0 +1,13 @@
+metric,value
+Pearson r (lang vs bundle),0.9010
+Spearman rho (lang vs bundle),0.8968
+N,221
+R2 (bundle DV),0.4500
+cyt_stem_per_10k B (bundle DV),"0.0376 (SE=0.0109, p=0.0006, beta=0.193)"
+dist_stem_uni_km B (bundle DV),"-0.0015 (SE=0.0017, p=0.3852, beta=-0.080)"
+pct_univ_adultos B (bundle DV),"0.0365 (SE=0.0260, p=0.1606, beta=0.126)"
+log_wage_median B (bundle DV),"1.2058 (SE=0.4234, p=0.0044, beta=0.191)"
+rad_mean_2022 B (bundle DV),"-0.0035 (SE=0.0036, p=0.3271, beta=-0.083)"
+pct_servicios_avanzados B (bundle DV),"-0.0147 (SE=0.0154, p=0.3413, beta=-0.068)"
+log_pob B (bundle DV),"0.4351 (SE=0.0749, p=0.0000, beta=0.500)"
+inet_penetracion_hog B (bundle DV),"0.0025 (SE=0.0078, p=0.7458, beta=0.028)"

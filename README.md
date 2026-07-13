@@ -2,7 +2,7 @@
 
 Replication package for:
 
-> Gomez, R. E. (2026). Where knowledge drives digital sophistication and where it does not: institutional contingency of the second-level divide in subnational software production. Working paper.
+> Gomez, R. E. (2026). Where knowledge predicts digital sophistication and where it does not: institutional contingency of the second-level divide in subnational software production. Working paper.
 
 ## Structure
 
@@ -16,7 +16,13 @@ contingency/
 │   ├── 01_extract_satellite_indicators.py  # Satellite proxies (VIIRS nighttime radiance)
 │   ├── 02_integrate_economic_indicators.py # CEP-XXI wages, employment, ENACOM internet
 │   ├── 03_analysis.py                     # Main analysis: OLS, Chow test, type-specific models
-│   └── 04_regenerate_figures.py           # Standalone figure regeneration (all 8 body + 2 supp)
+│   ├── 04_regenerate_figures.py           # Standalone figure regeneration
+│   ├── 10_revision_analyses.py            # Moderation, non-linearity, temporal panel (Tables S8, S10)
+│   ├── 11_selection_sensitivity.py        # Twelve-variant selection sensitivity (Table S9)
+│   ├── 12_mca_robustness.py               # Typology robustness across specifications (Table S6)
+│   ├── 13_h3_interaction_power.py         # Power analysis (Cohen 1988 minimum detectable effects)
+│   ├── 14_construct_validity.py           # Project-level construct validity (Table S11)
+│   └── 15_temporal_window_spsi.py         # Restricted-window SPSI recomputation (Table S13)
 ├── figures/                               # Output figures (PNG, 300 DPI)
 ├── tables/                                # Output tables (CSV)
 ├── requirements.txt
@@ -29,10 +35,10 @@ contingency/
 ```bash
 pip install -r requirements.txt
 
-# Run the full analysis (generates all figures and tables)
+# Run the full analysis (generates the core figures and tables)
 python scripts/03_analysis.py
 
-# Or regenerate figures only (standalone, improved formatting)
+# Or regenerate figures only (standalone)
 python scripts/04_regenerate_figures.py
 ```
 
@@ -42,7 +48,7 @@ The integrated dataset (`data/departamentos_master.csv`) contains 511 Argentine 
 
 | Source | Variables | Period |
 |--------|-----------|--------|
-| **GitHub Argentina** | Developer counts, language portfolios, ECI | 2008–2026 |
+| **GitHub Argentina** | Developer counts, language portfolios, SPSI | 2008–2026 |
 | **MinCyT (CVar)** | STEM researchers per 10,000 population | 2022 |
 | **SPU** | University locations, STEM programme offerings | 2023 |
 | **INDEC Census** | Population, education, employment, poverty | 2010, 2022 |
@@ -50,7 +56,9 @@ The integrated dataset (`data/departamentos_master.csv`) contains 511 Argentine 
 | **ENACOM** | Internet household penetration | 2022 |
 | **VIIRS** | Nighttime radiance composites | 2014, 2022 |
 
-Scripts `00`–`02` document the pipeline from raw sources to the master dataset. Since raw source files are not redistributed (census microdata, MinCyT personnel records), these scripts serve as methodological documentation. The analysis is fully reproducible from `departamentos_master.csv` alone using `03_analysis.py`.
+The dependent variable is the Software Portfolio Sophistication Index (SPSI), computed from the bipartite network linking departments to programming languages via the eigenvalue-decomposition method (stored as `eci_software` in the dataset for historical continuity of the variable name).
+
+Scripts `00`–`02` document the pipeline from raw sources to the master dataset. Since raw source files are not redistributed (census microdata, MinCyT personnel records), these scripts serve as methodological documentation. The core analysis is fully reproducible from `departamentos_master.csv` alone using `03_analysis.py`. Scripts `10`–`14` document the revision-stage robustness analyses and run from the master dataset and the CSVs in `tables/`. Script `15` recomputes the SPSI from repository-level records held in a PostgreSQL database that is not redistributed (GitHub terms of service); it is included as methodological documentation, and its output is `tables/table_S13_temporal_window.csv`.
 
 ## Territorial typology
 
@@ -70,6 +78,8 @@ The MCA cluster assignments are included in `departamentos_master.csv` (variable
 | Pampeana-Educated | 58 | 0.326 | STEM β = 0.225*** |
 | Metro-Core | 53 | 0.456 | STEM β = 0.236* |
 | Intermediate-Urban | 49 | 0.172 | STEM n.s.; wages β = 0.301* |
+| Pooled OLS, SPSI 2015–2026 | 221 | 0.452 | STEM β = 0.203*** (*r* = 0.995 with full-window index) |
+| Pooled OLS, SPSI 2020–2026 | 214 | 0.485 | STEM β = 0.186*** (*r* = 0.960 with full-window index) |
 
 ## Output mapping
 
@@ -78,13 +88,13 @@ The MCA cluster assignments are included in `departamentos_master.csv` (variable
 | Article | File | Content |
 |---------|------|---------|
 | Fig. 1 | `fig_08_choropleth_typology.png` | Choropleth: six territorial types |
-| Fig. 2 | `fig_01_distributions.png` | Histograms: ECI, developers, STEM, wages |
-| Fig. 3 | `fig_09_choropleth_eci_stem.png` | Dual choropleth: ECI and STEM density |
-| Fig. 4 | `fig_05_mca_knowledge.png` | MCA factorial plane with knowledge gradient |
-| Fig. 5 | `fig_06_forest_plot.png` | Forest plot: standardised betas by type |
-| Fig. 6 | `fig_03_horse_race_scatter.png` | Scatter: ECI vs STEM and wages by type |
+| Fig. 2 | `fig_09_choropleth_eci_stem.png` | Dual choropleth: SPSI and STEM density |
+| Fig. 3 | `fig_05_mca_knowledge.png` | MCA factorial plane with skills gradient |
+| Fig. 4 | `fig_06_forest_plot.png` | Forest plot: standardised betas by type |
+| Fig. 5 | `fig_03_horse_race_scatter.png` | Scatter: SPSI vs STEM and wages by type |
 | Fig. S1 | `fig_S1_robustness.png` | Coefficient stability across specifications |
 | Fig. S2 | `fig_02_correlation_heatmap.png` | Correlation heatmap |
+| Fig. S3 | `fig_01_distributions.png` | Distributions: SPSI, developers, STEM, wages |
 
 ### Tables
 
@@ -93,11 +103,20 @@ The MCA cluster assignments are included in `departamentos_master.csv` (variable
 | Table 2 | `table_01_descriptive.csv` | Descriptive statistics |
 | Table 3 | `table_03_models.csv` | Pooled OLS (knowledge-only, wealth-only, full) |
 | Table 4 | `table_05_type_specific.csv` | Type-specific OLS coefficients |
-| Table S1 | `table_02_correlations.csv` | Bivariate correlations |
-| Table S1 | `table_02b_partial_correlations.csv` | Partial correlations |
-| Table S2 | `table_07_robustness.csv` | Robustness checks |
+| Table 5 / S10 | `table_05_moderation_nonlinearity.csv` | Moderation and non-linearity extensions |
+| Table S1 | `table_02_correlations.csv` + `table_02b_partial_correlations.csv` | Bivariate and partial correlations |
+| Table S2 | `table_07_robustness.csv` | Coefficient stability across specifications |
 | Table S3 | `table_S3_mca_coordinates.csv` | MCA modality coordinates and contributions |
 | Table S4 | `table_08_logit_type.csv` | Type-specific logit (participation) |
+| Table S5 | `table_03_models.csv` | Skills-only and wealth-only models |
+| Table S6 | `table_S6_typology_robustness.csv` | Typology robustness (Cramér's *V*) |
+| Table S7 | `table_S7_bundle_robustness.csv` | Bundle-based alternative indicator |
+| Table S8 | `table_S8_temporal_panel.csv` | Year-over-year rank stability 2015–2025 |
+| Table S9 | `table_S9_selection_sensitivity.csv` | Selection sensitivity (twelve variants) |
+| Table S11 | `table_S11_construct_validity.csv` | Construct validity against project-level signals |
+| Table S13 | `table_S13_temporal_window.csv` | Restricted-window SPSI recomputation |
+
+Table 1 (cluster profiles), Table S12 (MCA eigenvalue decomposition), and the in-text Chow statistics are produced inline by `03_analysis.py` and the manuscript build; they have no standalone CSV.
 
 ## Colour palette
 
